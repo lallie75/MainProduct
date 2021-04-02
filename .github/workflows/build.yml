@@ -43,9 +43,7 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"lallie75_MainProduct" /o:"lallie75" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-               SonarScanner.MSBuild.exe begin /k:"Prep" /d:sonar.verbose=true
-
-MSBuild.exe /t:Rebuild /v:diag
-
-SonarScanner.MSBuild.exe end
+                SonarScanner.MSBuild.exe begin /k:"Prep" /d:sonar.verbose=true
+                MSBuild.exe /t:Rebuild /v:diag
+                SonarScanner.MSBuild.exe end
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
