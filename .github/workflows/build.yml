@@ -43,11 +43,5 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"lallie75_MainProduct" /o:"lallie75" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-                - name: setup-msbuild
-                uses: microsoft/setup-msbuild@v1
-              with:
-                # Folder location of where vswhere.exe is located if a self-hosted agent
-                vswhere-path: # optional
-               # Version of Visual Studio to search; defaults to latest if not specified
-              vs-version: # optional
+              run: dotnet build --configuration release
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
