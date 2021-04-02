@@ -43,12 +43,8 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"lallie75_MainProduct" /o:"lallie75" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-            - name: Sonarscanner for dotnet
-              uses: Secbyte/dotnet-sonarscanner@v2.3
-              with:
-                buildCommand: dotnet build .
-                testCommand: dotnet test .
-                projectKey: a-project-key
-                projectName: a-project-name
-                sonarOrganisation: an-org
+              # Now restore packages and build everything.
+              dotnet restore src/ConsolePasswordInput.sln
+              dotnet test src/ConsolePasswordInput.sln --collect "Code Coverage"
+              dotnet build src/ConsolePasswordInput.sln --configuration release
            .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
